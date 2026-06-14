@@ -6,7 +6,7 @@ from uuid import uuid4
 
 # Takes an svg string of an image and returns the draw.io compatible XML string
 def generate_xml_string(svg_string, title):
-    imagedata = b64encode(svg_string.encode('ascii')).decode('ascii')
+    imagedata = b64encode(svg_string.encode('utf-8')).decode('ascii')
 
     # Extract image dimensions from svg
     viewbox_start = svg_string.find('viewBox="')
@@ -41,7 +41,7 @@ if __name__ == "__main__":
     for input_filename in listdir(input_file_path):
         if input_filename.endswith(".svg"):
             #   Read file to string
-            with open(f"{input_file_path}{input_filename}", "r") as svg_file:
+            with open(f"{input_file_path}{input_filename}", "r", encoding="utf-8") as svg_file:
                 svg_string = svg_file.read()
             #   Replace color in string
             new_svg_string = search_and_replace(svg_string, color)
@@ -50,6 +50,6 @@ if __name__ == "__main__":
             xml_library_string = xml_library_string + xml_string
     
     xml_library_string = xml_library_string[:-1] + ']</mxlibrary>'
-    with open(f"{xml_library_file_name}", "w") as xml_library_file:
+    with open(f"{xml_library_file_name}", "w", encoding="utf-8") as xml_library_file:
         xml_library_file.write(xml_library_string)
     print(f'Conversion successful. Library saved as "{xml_library_file_name}".')

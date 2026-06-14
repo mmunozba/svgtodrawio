@@ -38,10 +38,10 @@ if __name__ == "__main__":
     for input_filename in listdir(input_file_path):
         if input_filename.endswith(".svg"):
             #   Read file to string
-            with open(f"{input_file_path}{input_filename}", "r") as svg_file:
+            with open(f"{input_file_path}{input_filename}", "r", encoding="utf-8") as svg_file:
                 svg_string = svg_file.read()
             #   Replace color in string
             new_svg_string = search_and_replace(svg_string, color)
             #   Save string to new file
-            with open(f"{output_file_path}{input_filename}", "w") as new_svg_file:
+            with open(f"{output_file_path}{input_filename}", "w", encoding="utf-8") as new_svg_file:
                 new_svg_file.write(new_svg_string)
